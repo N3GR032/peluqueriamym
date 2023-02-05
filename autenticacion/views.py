@@ -3,24 +3,26 @@ from django.views.generic import View
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
+from .form import CustomUserCreationForm,FormularioDireccion
 
 # Create your views here.
 
 class VRegistro(View):
 
    def get(self, request):
-      form=UserCreationForm()
+      form=CustomUserCreationForm()
       return render(request, "registro/registro.html",{"form":form})
 
    def post(self, request):
-      form=UserCreationForm(request.POST)
-
+      form=CustomUserCreationForm(request.POST)
+      formDireccion=FormularioDireccion(request.POST)
       if form.is_valid():
          usuario=form.save()
-
+         direccion= formDireccion.save(commit=False)
          login(request, usuario)
-
+         direccion.user = request.user
+         direccion.save()
          return redirect('Inicio')
       else:
          for msg in form.error_messages:
