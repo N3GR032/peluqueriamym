@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'peluqueriamim.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'peluqueriamim',
+        'NAME': 'peluqueriamim2',
         'USER': 'postgres',
         'PASSWORD': 'cadena12',
         'HOST':'127.0.0.1',
